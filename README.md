@@ -28,6 +28,8 @@ This toolchain is designed to ease detailed control of mulitiple solenoid timing
 
 * *Visualize Timings* offers a graphical representation through time for the solenoid states.
 
+![timing plot](timings.png)
+
 ### Firing tab
 
 * various actions to query, set, and execute solenoid timings on the uC.
