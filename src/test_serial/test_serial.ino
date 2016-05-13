@@ -6,11 +6,12 @@
 const unsigned long minDuration = 10UL;
 const unsigned long maxDuration = 10000UL;
 
+/*
 const byte N_PORTS = 2;
 const byte pins[N_PORTS] = {13, 13};
 const byte lowDef[N_PORTS] = {LOW, LOW};
+*/
 
-/*
 const byte N_PORTS = 16;
 // pin hookups
 const byte pins[N_PORTS] = {
@@ -23,7 +24,6 @@ const byte lowDef[N_PORTS] = {
   HIGH,HIGH,HIGH,HIGH,HIGH,HIGH,HIGH,HIGH, // SSRs are off when pin is HIGH
   LOW, LOW, LOW, LOW, LOW, LOW, LOW, LOW   // DC relays are off when pin is LOW
 };
-*/
 
 Solenoid sol[N_PORTS];
 
