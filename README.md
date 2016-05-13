@@ -29,7 +29,7 @@ This toolchain is designed to ease detailed control of mulitiple solenoid timing
 * *Visualize Timings* offers a graphical representation through time for the solenoid states.  For example:
     * Three solenoids (AC0="Propane", AC1="Air", AC2="Salts") are defined.
     * "Propane" is instructed to open for 250 ms and close for 500 ms, for four cycles and no delayed start.
-	* "Air" is instruvted to open for 50 mg and close for 700 mg, for for cycles and a 100 mg delayed start.  Thus, "Air" is in-phase with "Propane" and will open and close in the middle of "Propane" open.
+	* "Air" is instruvted to open for 50 mg and close for 700 mg, for four cycles and a 100 mg delayed start.  Thus, "Air" is in-phase with "Propane" and will open and close in the middle of "Propane" open.
 	* "Salts" is instructed to open as "Air", but for two cycles and a 900 ms delay.  Thus, "Salts" is in-phase with "Air", but only opens during the middle two openings of "Air" and "Propane".
 
 ![timing plot](timings.png)
