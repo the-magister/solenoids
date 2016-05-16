@@ -3,7 +3,7 @@ rm(list=ls())
 gc()
 
 ### required packages
-packages = c('shiny','reshape2','ggplot2','ggthemes','dplyr','serial')
+packages = c('shiny','reshape2','ggplot2','ggthemes','dplyr','serial','tcltk')
 
 ### Install CRAN packages (if not already installed)
 inst = packages %in% installed.packages()
