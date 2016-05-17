@@ -5,8 +5,8 @@ shinyUI(navbarPage(
 	# Application title
 	"Solenoid Driver UI",
 
-	# Ports
-	tabPanel("Ports",
+	# Settings
+	tabPanel("Settings",
 		fluidRow(
 			column(6, wellPanel(
 				h4("Active Ports"),
@@ -15,11 +15,16 @@ shinyUI(navbarPage(
 				uiOutput("port.naming")
 			)),
 			column(6, wellPanel(
-				h4("Serial Connnection"),
-				selectizeInput('serial', 'Select serial port:', choices=c("(none)"), multiple=F),
-				h4("Serial Response"),
-				verbatimTextOutput('serialResponse')
-			))			
+					h4("Timing Settings"),
+					sliderInput("maxDur", "Maximum Interval Sizes (ms)", min=50, max=10050, value=1000, step=50)
+				),
+				wellPanel(
+					h4("Serial Connnection"),
+					selectizeInput('serial', 'Select serial port:', choices=c("(none)"), multiple=F),
+					h4("Serial Response"),
+					verbatimTextOutput('serialResponse')
+				)
+			)			
 		)
 	),
 	

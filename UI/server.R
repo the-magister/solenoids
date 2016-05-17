@@ -22,20 +22,20 @@ port.list = c(paste0("AC",0:7), paste0("DC",0:7))
 theme_set(theme_grey(base_size = 18)) 
 
 # port panel generator
-timing.inputs = function(N, name) {
+timing.inputs = function(N, name, maxDur) {
 	column(2, wellPanel(
 		h4(paste0(name, " (", N, ")")),
 		sliderInput(
 			inputId=paste0("On.",N), label="On Interval (ms)",
-			min=50, max=10000, value=250, step=5
+			min=50, max=maxDur, value=250, step=5
 		),
 		sliderInput(
 			inputId=paste0("Off.",N), label="Off Interval (ms)",
-			min=50, max=10000, value=500, step=5
+			min=50, max=maxDur, value=500, step=5
 		),
 		sliderInput(
 			inputId=paste0("Start.",N), label="Start (ms)",
-			min=0, max=10000, value=0, step=10
+			min=0, max=maxDur, value=0, step=10
 		),
 		sliderInput(
 			inputId=paste0("Ncycle.",N), label="Number of Cycles",
@@ -45,12 +45,12 @@ timing.inputs = function(N, name) {
 }
 
 # port timing UI
-port.timings = function(ports, port.names) {
+port.timings = function(ports, port.names, maxDur) {
 	ret = tagList()
 	
 	for( i in 1:length(ports) ) {
 		ret = tagList(ret,
-			timing.inputs(ports[i], port.names[i])
+			timing.inputs(ports[i], port.names[i], maxDur)
 		)
 	}
 	ret = fluidRow(ret) 
@@ -166,13 +166,15 @@ send.timing = function(tt) {
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
 
-	### Ports tab
+	### Settings tab
 	# let the user select the active ports
 	active.ports = reactive({ 
 		ports = input$ports
 		cat(file=stderr(), "active ports:", ports, "\n")
 		return( ports )
 	})
+	# figure out duration
+	maxDur = reactive({ input$maxDur })
 	# generate a UI for naming those active ports
 	output$port.naming = renderUI({ port.naming(active.ports()) })
 	# read back in the active port names
@@ -222,7 +224,7 @@ shinyServer(function(input, output, session) {
 	})
 
 	### Timings tab
-	output$port.timing = renderUI({ port.timings(active.ports(), port.names) })
+	output$port.timing = renderUI({ port.timings(active.ports(), port.names, maxDur()) })
 	timing.table = reactive({
 		dt = NULL
 		for( p in active.ports() ) {
@@ -269,7 +271,7 @@ shinyServer(function(input, output, session) {
 			scale_color_colorblind() +
 			facet_wrap(~Label, ncol=1) +
 			scale_x_continuous(breaks=sort(unique(to.display$Time)), minor_breaks=F, name="Time, ms")
-	})
+	}, height=800)
 	
 	### Firing tab
 	command.log = reactive({ 
